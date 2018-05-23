@@ -93,14 +93,14 @@ class Form extends React.Component {
           labelText="First Name"
           id="fName"
           value={this.state.firstName}
-          onChange={this.handleChange}
+          onChange={this.handleInput}
           name={"firstName"}
         />
         <Input
           labelText="Last Name"
           id="lName"
           value={this.state.lastName}
-          onChange={this.handleChange}
+          onChange={this.handleInput}
           name={"lastName"}
         />
         <button>Submit</button>
