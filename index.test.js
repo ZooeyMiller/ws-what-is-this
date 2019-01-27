@@ -13,6 +13,9 @@ test("catGreeting should not be broken", () => {
 });
 
 test("Counter should behave as a counter", () => {
+  jest.spyOn(console, 'error')
+  console.error.mockImplementation(() => {})
+  
   const { getByText, getByTestId } = render(<Counter />);
 
   fireEvent.click(getByText("+"));
