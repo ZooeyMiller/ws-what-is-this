@@ -1,5 +1,5 @@
 import React from "react";
-import { render, Simulate } from "react-testing-library";
+import { render, fireEvent } from "react-testing-library";
 import { person, catGreeting, Counter } from "./";
 
 jest.useFakeTimers();
@@ -13,14 +13,17 @@ test("catGreeting should not be broken", () => {
 });
 
 test("Counter should behave as a counter", () => {
+  jest.spyOn(console, 'error')
+  console.error.mockImplementation(() => {})
+  
   const { getByText, getByTestId } = render(<Counter />);
 
-  Simulate.click(getByText("+"));
-  Simulate.click(getByText("+"));
+  fireEvent.click(getByText("+"));
+  fireEvent.click(getByText("+"));
 
   expect(getByTestId("count").textContent).toBe("2");
 
-  Simulate.click(getByText("-"));
+  fireEvent.click(getByText("-"));
   Simulate.click(getByText("-"));
 
   expect(getByTestId("count").textContent).toBe("0");
