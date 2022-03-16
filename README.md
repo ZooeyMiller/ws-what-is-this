@@ -62,7 +62,23 @@ returnThisThree(); // gives us { name: "Charli", returnThis: f } 🎉
 
 Explicit binding of `this` is also helpful for destructuring, as `person.returnThis` will have a `this` of `person` but `returnThis` destructured from `person` will have a `this` of `window`.
 
-One can explicitly bind `this` and call a function at the same time using `.call` or `.apply` but I have never seen either of these in actual code, just in examples so I'm not going to explain them, I encourage doing some independant reading if you want to know about them though!
+One can explicitly bind `this` and call a function at the same time using `.call` or `.apply`. `.call` or `.apply` allows us to explicitly pass in this as we call it like so:
+```
+returnThis.call(person2); // gives us { name: "Charli", returnThis: f }
+returnThis.apply(person2); // gives us { name: "Charli", returnThis: f }
+```
+The difference between to two comes in how you pass extra arguments in. If the function we are using with `.call` or `.apply` requires arguments to be passed in, with `.call` we pass them as more arguments, with `.apply` we pass them as an array. e.g.
+```
+function consoleLogThisAndStuff(stuff1, stuff2) {
+  console.log(this, stuff1, stuff2)
+}
+
+consoleLogThisAndStuff.call(person2, 'arg1', 'arg2') // prints: { name: "Charli", returnThis: f } 'arg1' 'arg2'
+consoleLogThisAndStuff.call(person2, ['arg3', 'arg4']) // prints: { name: "Charli", returnThis: f } 'arg3' 'arg4'
+
+```
+
+
 
 `this` causes us an issue in react as well, say I have an input component, and a form component, the form maintains the state of the inputs, and I have to pass the value for the input and the `onChange` function down to the input.
 
